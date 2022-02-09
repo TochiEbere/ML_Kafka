@@ -3,7 +3,6 @@ from CNN_pipeline import CnnPipeline
 from utils import parse_cnn_args, data_generator
 import tensorflow as tf
 import json
-import Part_2
 
 
 def main():
@@ -15,6 +14,7 @@ def main():
     NUM_CLASSES = args.num_class
     DATA_DIRECTORY = args.data_dir
     TARGET_SIZE = args.target_size
+    EPOCH = args.num_epoch
     OPTIMIZER="adam"
     LOSS = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
@@ -31,7 +31,7 @@ def main():
 
     model_pipeline = CnnPipeline(train_data, test_data)
     model_pipeline.model_architecture(TARGET_SIZE, NUM_CLASSES, OPTIMIZER, LOSS)
-    cnn_model = model_pipeline.train_CNNmodel()
+    cnn_model = model_pipeline.train_CNNmodel(num_epoch=EPOCH)
     model_pipeline.model_accuracy()
     cnn_model.save("{}.h5".format(MODEL_PATH))
 

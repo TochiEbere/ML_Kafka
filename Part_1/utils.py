@@ -18,6 +18,10 @@ def parse_cnn_args():
                         default=None,
                         help='Directory path to data')
 
+    cnn_parser.add_argument('--num_epoch', type=int,
+                        default=10,
+                        help='Number of epochs')
+
     cnn_parser.add_argument('--target_size', type=int,
                         default=28,
                         help='Dimension to which input image will be resized')  

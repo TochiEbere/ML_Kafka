@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from utils import parse_args
+from utils import parse_cnn_args
 
 
 class CnnPipeline:
@@ -33,11 +33,10 @@ class CnnPipeline:
         model.add(layers.Dense(num_class))
         model.compile(optimizer=optimizer, loss=loss, metrics=METRICS)
         self.model_arch = model
-        # return model
 
-    def train_CNNmodel(self,):
+    def train_CNNmodel(self, num_epoch):
         cnn_model = self.model_arch
-        history = cnn_model.fit(self.train_data, epochs=2, 
+        history = cnn_model.fit(self.train_data, epochs=num_epoch, 
                     validation_data=self.test_data)
         self.model_history = history
         self.model = cnn_model
@@ -45,7 +44,6 @@ class CnnPipeline:
 
     def model_accuracy(self):
         history = self.model_history
-        # train_scores = model.evaluate(self.train_data) 
-        # val_scores = model.evaluate(self.test_data)   
-        print('Train accuracy score is:', history.history)    
-        print('Test accuracy score is:', history.history['val_sparse_categorical_accuracy'][-1])    
+        print(history.history)
+        print('Train accuracy score is:', history.history['accuracy'][-1])    
+        print('Test accuracy score is:', history.history['val_accuracy'][-1])    
