@@ -14,18 +14,13 @@ PROJECT_ID = args.project_id
 def main(broker_type):
     if broker_type=='kafka':
         kafka_broker = KafkaStream(TOPIC)
-        data = kafka_broker.data_encoder(IMAGE)
         image = kafka_broker.consume()
-        kafka_broker.produce()
         return image
 
     else:
         pub_sub = GooglePubsub(TOPIC, GCP_CREDS)
         result = pub_sub.consume(SUB_ID, PROJECT_ID)
-        pub_sub.produce(PROJECT_ID)
         return result
-
 
 if __name__== '__main__':
     main(broker_type=BROKER_TYPE)
-

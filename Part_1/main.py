@@ -1,9 +1,9 @@
 import numpy as np
 from CNN_pipeline import CnnPipeline
-from kafka_produce_consume import write_to_kafka, decode_kafka_item
 from utils import parse_cnn_args, data_generator
-# import tensorflow_io as tfio
 import tensorflow as tf
+import json
+import Part_2
 
 
 def main():
@@ -23,6 +23,11 @@ def main():
         data_dir=DATA_DIRECTORY,
         target_size=TARGET_SIZE
         )
+    
+    if DATA_SOURCE !='fashion_mnist':
+        labels = train_data.class_indices
+        with open("label.json", "w") as outfile:
+            json.dump(labels, outfile)
 
     model_pipeline = CnnPipeline(train_data, test_data)
     model_pipeline.model_architecture(TARGET_SIZE, NUM_CLASSES, OPTIMIZER, LOSS)

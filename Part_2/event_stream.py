@@ -20,13 +20,6 @@ class StreamRequest():
         self.encoded_data = data
         return data
 
-    def produce(self, bootstrap_server=['localhost:9092']):     
-        pass
-
-    def consume(self, bootstrap_server=['localhost:9092']):
-        pass
-
-
 class KafkaStream(StreamRequest):
 
     def __init__(self, topic_name):
