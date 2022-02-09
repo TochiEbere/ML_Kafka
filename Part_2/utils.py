@@ -39,7 +39,7 @@ def parse_broker_args():
             description="Parses args to message broker", 
             allow_abbrev=False)
 
-    broker_parser.add_argument('--broker_type', type=int,
+    broker_parser.add_argument('--broker_type', type=str,
                                 default='kafka', 
                                 help='Broker type to use. Options are kafka or googlepubsub')
 

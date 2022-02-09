@@ -1,10 +1,3 @@
-from PIL import Image
-import numpy as np
-from tensorflow.keras.models import Sequential, save_model, load_model
-import tensorflow as tf
-from utils import parse_args
-import tensorflow_datasets as tfds
-import json
 import argparse
 
 
@@ -33,14 +26,3 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
-def load_data(image_path, target_size):
-    img = Image.open(image_path)
-    img = img.resize((target_size,target_size))
-    np_img = np.array(img)
-    np_img = tf.cast(np_img, tf.float32) / 255.
-    np_img = np.expand_dims(np_img, axis=0)
-    return np_img
-
-def stream_data():
-    data = 

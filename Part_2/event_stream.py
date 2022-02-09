@@ -6,7 +6,6 @@ import numpy as np
 from concurrent.futures import TimeoutError
 from google.cloud import pubsub_v1
 import os
-# run an arg parser
 
 
 class StreamRequest():

@@ -11,7 +11,7 @@ SUB_ID = args.subscription_id
 PROJECT_ID = args.project_id
 
 
-def main(broker_type):
+def producer(broker_type):
     if broker_type=='kafka':
         kafka_broker = KafkaStream(TOPIC)
         data = kafka_broker.data_encoder(IMAGE)
@@ -21,5 +21,4 @@ def main(broker_type):
         pub_sub.produce(PROJECT_ID)
 
 
-if __name__== '__main__':
-    main(broker_type=BROKER_TYPE)
+producer(broker_type=BROKER_TYPE)
