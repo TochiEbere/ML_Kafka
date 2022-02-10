@@ -15,7 +15,7 @@ def parse_args():
 
     parser.add_argument('--data_dir', type=str,
                         default=None,
-                        help='Directory path to train data')
+                        help='Directory path to data')
 
     parser.add_argument('--num_epoch', type=int,
                         default=10,
@@ -33,6 +33,7 @@ def parse_args():
                         default='model',
                         help='Path to save the model')
 
+
     parser.add_argument('--image_path', type=str,
                         help='Full path to image')
     
@@ -42,12 +43,23 @@ def parse_args():
     parser.add_argument('--model', type=str,
                         help='Full path to CNN model')
 
-    parser.add_argument('--broker_type', type=str,
+    parser.add_argument('--target_size', type=int,
+                        default=28,
+                        help='Dimension to which input image will be resized')  
+    
+    parser.add_argument('--data_source', type=str,
+                        default='fashion_mnist',
+                        help='Either fashion_mnist or custom')
+
+    parser.add_argument('--broker_type', type=int,
                                 default='kafka', 
                                 help='Broker type to use. Options are kafka or googlepubsub')
 
-    parser.add_argument('--topic_name', type=int,
+    parser.add_argument('--topic_name', type=str,
                                 help='Topic name')
+
+    parser.add_argument('--image_path', type=str,
+                                help='Full path to image file')
 
     parser.add_argument('--gcp_credentials', type=str,
                                 default=None,help='Full path to GCP credentials')

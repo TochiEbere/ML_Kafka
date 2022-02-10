@@ -3,30 +3,36 @@ import json
 from tensorflow.keras.models import load_model
 import tensorflow_datasets as tfds
 import numpy as np
+import sys
+
+sys.path.append('C:\\Users\\Best\\Documents\\VectorAI_Assessment')
+
 from Part_2 import consumer
 
-def main():
 
-    args = parse_args()
+def main(model_path, target_size, data_source, label_path,
+        broker_type, topic, gcp_creds=None, sub_id=None, project_id=None):
 
-    MODEL_PATH = args.model_path
-    LABEL_PATH = args.label_path
-    DATA_SOURCE = args.data_source
-    IMAGE_PATH = args.image_path
-    TARGET_SIZE = args.target_size
+    model = load_model(model_path, compile = True)
 
-    model = load_model('model.h5', compile = True)
+    try:
+        img = consumer.consumer(broker_type, topic, gcp_creds=None, sub_id=None, project_id=None)
+    except KeyboardInterrupt:
+        pass
 
-    img = consumer.consumer()
+    img = img.resize((target_size,target_size))
+    np_img = np.array(img)
+    print(np_img.shape)
+    np_img/=255
 
-
-    if DATA_SOURCE == 'fashion_mnist':
+    if data_source == 'fashion_mnist':
         class_labels = tfds.builder("fashion_mnist").info.features["label"]
+
         pred = model.predict(img)
         prediction = np.argmax(pred)
         label = class_labels.int2str(prediction)
     else:
-        with open(LABEL_PATH) as json_file:
+        with open(label_path) as json_file:
             class_labels = json.load(json_file)
 
         pred = model.predict(img)
@@ -34,3 +40,24 @@ def main():
         label = class_labels[prediction]
     
     return label
+
+if __name__ == "__main__":
+
+    args = parse_args()
+    BROKER_TYPE = args.broker_type
+    TOPIC = args.topic_name
+    GCP_CREDS = args.gcp_credentials
+    SUB_ID = args.subscription_id
+    PROJECT_ID = args.project_id
+    MODEL_PATH = args.model
+    LABEL_PATH = args.labels
+    DATA_SOURCE = args.data_source
+    TARGET_SIZE = args.target_size
+
+    main(
+        model_path=MODEL_PATH, 
+        target_size=TARGET_SIZE, 
+        data_source=DATA_SOURCE, 
+        label_path=LABEL_PATH, 
+        broker_type=BROKER_TYPE, 
+        topic=TOPIC)

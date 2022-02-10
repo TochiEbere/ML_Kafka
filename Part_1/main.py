@@ -1,39 +1,49 @@
 import numpy as np
 from CNN_pipeline import CnnPipeline
-from utils import parse_cnn_args, data_generator
+from utils import parse_args, data_generator
 import tensorflow as tf
 import json
 
 
-def main():
+def main(model_path, data_source, target_class, 
+            num_classes, data_dir, target_size, epoch):
 
-    args = parse_cnn_args()
-    MODEL_PATH = args.model_path
-    DATA_SOURCE = args.data_source
-    TARGET_SIZE = args.target_size
-    NUM_CLASSES = args.num_class
-    DATA_DIRECTORY = args.data_dir
-    TARGET_SIZE = args.target_size
-    EPOCH = args.num_epoch
-    OPTIMIZER="adam"
     LOSS = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+    OPTIMIZER="adam"
 
     train_data, test_data = data_generator(
-        source=DATA_SOURCE,
-        data_dir=DATA_DIRECTORY,
-        target_size=TARGET_SIZE
+        source=data_source,
+        data_dir=data_dir,
+        target_size=target_size
         )
     
-    if DATA_SOURCE !='fashion_mnist':
+    if data_source !='fashion_mnist':
         labels = train_data.class_indices
         with open("label.json", "w") as outfile:
             json.dump(labels, outfile)
 
     model_pipeline = CnnPipeline(train_data, test_data)
-    model_pipeline.model_architecture(TARGET_SIZE, NUM_CLASSES, OPTIMIZER, LOSS)
-    cnn_model = model_pipeline.train_CNNmodel(num_epoch=EPOCH)
+    model_pipeline.model_architecture(target_size, num_classes, OPTIMIZER, LOSS)
+    cnn_model = model_pipeline.train_CNNmodel(num_epoch=epoch)
     model_pipeline.model_accuracy()
-    cnn_model.save("{}.h5".format(MODEL_PATH))
+    cnn_model.save("{}.h5".format(model_path))
 
 if __name__ == "__main__":
-    main()
+
+    args = parse_args()
+
+    MODEL_PATH = args.model
+    DATA_SOURCE = args.data_source
+    TARGET_SIZE = args.target_size
+    NUM_CLASSES = args.num_class
+    DATA_DIRECTORY = args.data_dir
+    EPOCH = args.num_epoch
+
+    main(
+        model_path=MODEL_PATH, 
+        data_source=DATA_SOURCE, 
+        target_class=TARGET_SIZE, 
+        num_classes=NUM_CLASSES, 
+        data_dir=DATA_DIRECTORY,
+        target_size=TARGET_SIZE,
+        epoch=EPOCH)

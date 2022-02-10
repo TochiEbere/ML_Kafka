@@ -1,64 +1,64 @@
 import argparse
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from keras import datasets, layers, models
 import tensorflow_datasets as tfds
 
-def parse_cnn_args():
+def parse_args():
 
-    cnn_parser = argparse.ArgumentParser(
-        description="Parses args to CNN pipeline", 
+    parser = argparse.ArgumentParser(
+        description="Command line arguments", 
         allow_abbrev=False)
 
-    cnn_parser.add_argument('--data_source', type=str,
+    parser.add_argument('--data_source', type=str,
                         default='fashion_mnist',
                         help='Either fashion_mnist or custom')
 
-    cnn_parser.add_argument('--data_dir', type=str,
+    parser.add_argument('--data_dir', type=str,
                         default=None,
-                        help='Directory path to data')
+                        help='Directory path to train data')
 
-    cnn_parser.add_argument('--target_size', type=int,
+    parser.add_argument('--num_epoch', type=int,
+                        default=10,
+                        help='Number of epochs')
+
+    parser.add_argument('--target_size', type=int,
                         default=28,
                         help='Dimension to which input image will be resized')  
 
-    cnn_parser.add_argument('--num_class', type=int,
+    parser.add_argument('--num_class', type=int,
                         default=10,
                         help='Number of classes') 
 
-    cnn_parser.add_argument('--model_path', type=str,
+    parser.add_argument('--model_path', type=str,
                         default='model',
                         help='Path to save the model')
 
-    args = cnn_parser.parse_args()
-    return args
+    parser.add_argument('--image_path', type=str,
+                        help='Full path to image')
+    
+    parser.add_argument('--labels', type=str,
+                        default=None, help='Json file of labels')
 
+    parser.add_argument('--model', type=str,
+                        help='Full path to CNN model')
 
-def parse_broker_args():
-    broker_parser = argparse.ArgumentParser(
-            description="Parses args to message broker", 
-            allow_abbrev=False)
-
-    broker_parser.add_argument('--broker_type', type=str,
+    parser.add_argument('--broker_type', type=str,
                                 default='kafka', 
                                 help='Broker type to use. Options are kafka or googlepubsub')
 
-    broker_parser.add_argument('--topic_name', type=int,
+    parser.add_argument('--topic_name', type=str,
                                 help='Topic name')
 
-    broker_parser.add_argument('--image_path', type=str,
-                                help='Full path to image file')
-
-    broker_parser.add_argument('--gcp_credentials', type=str,
+    parser.add_argument('--gcp_credentials', type=str,
                                 default=None,help='Full path to GCP credentials')
     
-    broker_parser.add_argument('--project_id', type=str,
+    parser.add_argument('--project_id', type=str,
                                 default=None, help='GCP service account project ID')
 
-    broker_parser.add_argument('--subscription_id', type=str,
+    parser.add_argument('--subscription_id', type=str,
                                 default=None, help='Subscrition ID of Google Pubsub consumer')
     
-    args = broker_parser.parse_args()
+    args = parser.parse_args()
     return args
 
 
@@ -86,10 +86,6 @@ def data_generator(source, data_dir=None, target_size=None):
         return train, test
 
     else:
-        # Load command line arguments
-        args = parse_cnn_args()
-        # DATA_DIRECTORY = args.data_dir
-        # TARGET_SIZE = args.target_size
 
         # Generate custom train data
         datagen = ImageDataGenerator(rescale = 1./255, validation_split=0.2)

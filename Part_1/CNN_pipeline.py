@@ -1,14 +1,4 @@
-import tensorflow as tf
-from keras import datasets, layers, models
-import matplotlib.pyplot as plt
-# import scipy
-
-# Helper libraries
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from utils import parse_cnn_args
-
+from keras import layers, models
 
 class CnnPipeline:
 

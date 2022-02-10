@@ -9,7 +9,6 @@ TOPIC = args.topic_name
 GCP_CREDS = args.gcp_credentials
 SUB_ID = args.subscription_id
 PROJECT_ID = args.project_id
-
 broker_type = BROKER_TYPE
 
 def consumer(broker_type, topic, gcp_creds=None, sub_id=None, project_id=None):
