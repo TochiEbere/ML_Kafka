@@ -8,7 +8,7 @@ The folder contains the following:
     i. *model_architechture*: compiles a pre-defined CNN architechture.  
     ii. *train_CNNmodel*: for traning a CNN model.  
     iii. *model_accuracy*: for displaying the model train and validation accuracy results.  
-    iv. *main.py*: An executable script for training the CNN model.
+3. main.py: An executable script for training the CNN model.
 
 ## How to run it  
 #### Step 1: Install program requirements
