@@ -5,8 +5,7 @@ import tensorflow as tf
 import json
 
 
-def main(model_path, data_source, target_class, 
-            num_classes, data_dir, target_size, epoch):
+def main(model_path, data_source, num_classes, data_dir, target_size, epoch):
 
     LOSS = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     OPTIMIZER="adam"
@@ -41,8 +40,7 @@ if __name__ == "__main__":
 
     main(
         model_path=MODEL_PATH, 
-        data_source=DATA_SOURCE, 
-        target_class=TARGET_SIZE, 
+        data_source=DATA_SOURCE,  
         num_classes=NUM_CLASSES, 
         data_dir=DATA_DIRECTORY,
         target_size=TARGET_SIZE,
