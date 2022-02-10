@@ -11,7 +11,7 @@ The folder contains the following:
 4. main.py: An executable script to consume data from a running producer and feed it into a CNN model for prediction. Returns the predicted class.
 
 ## How to run it 
-### Run main.py  
+### Step 1: Run main.py  
 This accepts the following command line arguments:  
 i. --broker_type (str): Either of kafka or Google Pubsub. Defaults to "kafka"  
 ii. --topic_name (str, compulsory): Topic name  
@@ -25,4 +25,16 @@ viii. --data_source (str, compulsory): Data source. Either of 'fashion_mnist' or
 
 ```bash
 python .\Part_3\main.py  --topic_name='topic name' --model='model path' 
+```
+
+### Step 2: On a separate terminal run producer.py
+This accepts the following command line arguments:  
+i. --broker_type (str, compulsory): Either of kafka or Google Pubsub. Defaults to "kafka"  
+ii. --topic_name (str, compulsory): Topic name   
+iii. --image_path (str, compulsory): path to image data to be streamed  
+iv. --gcp_credentials (str, optional): GCP credentials (Not required if --broker_type='kafka)  
+v. --project_id (str, optional): GCP project ID (Not required if --broker_type='kafka)
+
+```bash
+python .\Part_2\producer.py --image_path="Path to image data" --topic_name='Topic name'
 ```
