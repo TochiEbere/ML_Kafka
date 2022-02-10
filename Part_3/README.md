@@ -11,7 +11,7 @@ The folder contains the following:
 4. main.py: An executable script to consume data from a running producer and feed it into a CNN model for prediction. Returns the predicted class.
 
 ## How to run it 
-#### Run main.py  
+### Run main.py  
 This accepts the following command line arguments:  
 i. --broker_type (str): Either of kafka or Google Pubsub. Defaults to "kafka"  
 ii. --topic_name (str, compulsory): Topic name  
