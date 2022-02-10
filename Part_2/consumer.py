@@ -29,4 +29,4 @@ def consumer(broker_type, topic, gcp_creds=None, sub_id=None, project_id=None):
 # except KeyboardInterrupt:
 #     pass
 
-consumer(broker_type=BROKER_TYPE, topic='inference')
+# consumer(broker_type=BROKER_TYPE, topic='inference')

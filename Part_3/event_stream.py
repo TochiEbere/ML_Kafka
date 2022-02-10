@@ -39,7 +39,7 @@ class KafkaStream(StreamRequest):
 
         for message in consumer:
             stream = BytesIO(message.value)
-            image = Image.open(stream).convert("RGBA")
+            image = Image.open(stream).convert("L")
             stream.close()
             break
         return image

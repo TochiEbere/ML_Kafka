@@ -39,7 +39,7 @@ class KafkaStream(StreamRequest):
 
         for message in consumer:
             stream = BytesIO(message.value)
-            image = Image.open(stream).convert("RGBA")
+            image = Image.open(stream).convert("L")
             stream.close()
             break
         return image
@@ -49,7 +49,7 @@ class KafkaStream(StreamRequest):
         producer.send(self.topic, self.encoded_data.tobytes())
         print('---Sending data to Kafka broker---')
     
-    
+
 class GooglePubsub(StreamRequest):
 
     def __init__(self, topic_name, path_to_credentials):

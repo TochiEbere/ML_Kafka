@@ -26,13 +26,13 @@ def main(model_path, data_source, target_class,
     model_pipeline.model_architecture(target_size, num_classes, OPTIMIZER, LOSS)
     cnn_model = model_pipeline.train_CNNmodel(num_epoch=epoch)
     model_pipeline.model_accuracy()
-    cnn_model.save("{}.h5".format(model_path))
+    cnn_model.save("{}\model.h5".format(model_path))
 
 if __name__ == "__main__":
 
     args = parse_args()
 
-    MODEL_PATH = args.model
+    MODEL_PATH = args.model_path
     DATA_SOURCE = args.data_source
     TARGET_SIZE = args.target_size
     NUM_CLASSES = args.num_class
@@ -46,4 +46,5 @@ if __name__ == "__main__":
         num_classes=NUM_CLASSES, 
         data_dir=DATA_DIRECTORY,
         target_size=TARGET_SIZE,
-        epoch=EPOCH)
+        epoch=EPOCH
+        )

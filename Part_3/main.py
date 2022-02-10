@@ -1,5 +1,6 @@
 from utils import parse_args
 import json
+import tensorflow as tf
 from tensorflow.keras.models import load_model
 import tensorflow_datasets as tfds
 import numpy as np
@@ -22,13 +23,13 @@ def main(model_path, target_size, data_source, label_path,
 
     img = img.resize((target_size,target_size))
     np_img = np.array(img)
-    print(np_img.shape)
-    np_img/=255
+    np_img = tf.cast(np_img, tf.float32) / 255.
+    np_img = np.expand_dims(np_img, axis=0)
 
     if data_source == 'fashion_mnist':
         class_labels = tfds.builder("fashion_mnist").info.features["label"]
 
-        pred = model.predict(img)
+        pred = model.predict(np_img)
         prediction = np.argmax(pred)
         label = class_labels.int2str(prediction)
     else:
@@ -54,10 +55,12 @@ if __name__ == "__main__":
     DATA_SOURCE = args.data_source
     TARGET_SIZE = args.target_size
 
-    main(
+    prediction = main(
         model_path=MODEL_PATH, 
         target_size=TARGET_SIZE, 
         data_source=DATA_SOURCE, 
         label_path=LABEL_PATH, 
         broker_type=BROKER_TYPE, 
         topic=TOPIC)
+    
+    print('Your image was predicted as', prediction)
