@@ -15,8 +15,6 @@ class StreamRequest():
         self.topic = topic_name
 
     def data_encoder(self, image_path):
-        # with open(image_path, "rb") as image_file:
-        #     data = base64.b64encode(image_file.read())
         image = cv2.imread(image_path)
         ret, data = cv2.imencode('.jpg', image)
         self.encoded_data = data
