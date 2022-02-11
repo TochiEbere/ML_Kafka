@@ -29,7 +29,7 @@ v. --project_id (str, optional): GCP project ID (Not required if --broker_type='
 python .\Part_2\consumer.py --topic_name='topic name'
 ```
 
-#### Step 4: Start a consumer instance by running producer.py  
+#### Step 4: Start a producer instance by running producer.py  
 This accepts the following command line arguments:  
 i. --broker_type (str, compulsory): Either of kafka or Google Pubsub. Defaults to "kafka"  
 ii. --topic_name (str, compulsory): Topic name   
