@@ -1,12 +1,11 @@
-import base64
-from PIL import Image
-from io import BytesIO
-from kafka import KafkaProducer, KafkaConsumer
-import numpy as np
-from concurrent.futures import TimeoutError
-from google.cloud import pubsub_v1
 import os
+from io import BytesIO
+
 import cv2
+from concurrent.futures import TimeoutError
+from PIL import Image
+from kafka import KafkaProducer, KafkaConsumer
+from google.cloud import pubsub_v1
 
 
 class StreamRequest():
@@ -19,6 +18,12 @@ class StreamRequest():
         ret, data = cv2.imencode('.jpg', image)
         self.encoded_data = data
         return data
+
+    def consume(self,):
+        pass
+
+    def produce(self,):
+        pass
 
 class KafkaStream(StreamRequest):
 
@@ -45,6 +50,7 @@ class KafkaStream(StreamRequest):
     def produce(self, bootstrap_server=['localhost:9092']):
         producer=KafkaProducer(bootstrap_servers=bootstrap_server)
         producer.send(self.topic, self.encoded_data.tobytes())
+        producer.flush()
         print('---Sending data to Kafka broker---')
     
 
