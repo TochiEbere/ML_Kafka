@@ -16,6 +16,22 @@ from Part_2 import consumer
 
 def main(model_path, target_size, data_source, label_path,
         broker_type, topic, gcp_creds=None, sub_id=None, project_id=None):
+    """Consume data from a broker and parse it into a CNN model for prediction
+
+    Args:
+        model_path (str): Path to CNN model
+        target_size (int): Target size to resize input image to
+        data_source (str): Data to use. Either Fashion_mnist or custom data
+        label_path (str): path to data label json file
+        broker_type (str): Type of broker to use. Either kafka or googlepubsub
+        topic (str): Topic name
+        gcp_creds (str, optional): GCP credentials. Defaults to None.
+        sub_id (str, optional): Subscription ID. Defaults to None.
+        project_id (str, optional): Project ID. Defaults to None.
+
+    Returns:
+        label: The predicted class
+    """
 
     model = load_model(model_path, compile = True)
 
