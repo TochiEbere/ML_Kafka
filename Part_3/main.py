@@ -11,7 +11,7 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 from utils import parse_args
-from part_2 import consumer
+from Part_2 import consumer
 
 
 def main(model_path, target_size, data_source, label_path,

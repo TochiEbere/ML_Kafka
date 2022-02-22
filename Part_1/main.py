@@ -7,7 +7,7 @@ import tensorflow as tf
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-from cnn_pipeline import CnnPipeline
+from CNN_pipeline import CnnPipeline
 from utils import parse_args, data_generator
 
 def main(model_path, data_source, num_classes, data_dir, target_size, epoch):
