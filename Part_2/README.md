@@ -5,8 +5,7 @@ This is a unified API for streaming data asynchornously using either Apache Kafk
 The folder contains the following:
 
 The folder contains the following:  
-1. uitls.py - Contains utility functions such as command line arguments
-2. stream_event.py - Contains a parent class *StreamRequest* and 2 child classes *KafkaStream and GooglePubsub*. with the following methods:  
+1. event_stream.py - Contains a parent class *StreamRequest* and 2 child classes *KafkaStream and GooglePubsub*. with the following methods:  
     i. *produce*: A method that starts a producer instance  
     ii. *consume*: A method that starts a consumer instance  
     iii. *data_encoder*: A data serializer  
@@ -20,7 +19,7 @@ The folder contains the following:
 #### Step 3: Start a consumer instance by running consumer.py  
 This accepts the following command line arguments:  
 i. --broker_type (str): Either of kafka or Google Pubsub. Defaults to "kafka"  
-ii. --topic_name (str, compulsory): Topic name  
+ii. --topic_name (str, required): Topic name  
 iii. --gcp_credentials (str, optional): GCP credentials (Not required if --broker_type='kafka)  
 iv. --subscription_id (str, optional): GCP subscriber Subscription ID (Not required if --broker_type='kafka)  
 v. --project_id (str, optional): GCP project ID (Not required if --broker_type='kafka)
@@ -31,9 +30,9 @@ python .\Part_2\consumer.py --topic_name='topic name'
 
 #### Step 4: Start a producer instance by running producer.py  
 This accepts the following command line arguments:  
-i. --broker_type (str, compulsory): Either of kafka or Google Pubsub. Defaults to "kafka"  
-ii. --topic_name (str, compulsory): Topic name   
-iii. --image_path (str, compulsory): path to image data to be streamed  
+i. --broker_type (str, required): Either of kafka or Google Pubsub. Defaults to "kafka"  
+ii. --topic_name (str, required): Topic name   
+iii. --image_path (str, required): path to image data to be streamed  
 iv. --gcp_credentials (str, optional): GCP credentials (Not required if --broker_type='kafka)  
 v. --project_id (str, optional): GCP project ID (Not required if --broker_type='kafka)
 

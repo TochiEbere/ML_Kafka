@@ -31,10 +31,10 @@ def main(model_path, data_source, num_classes, data_dir, target_size, epoch):
         target_size=target_size
         )
     
-    # Save class labels of custom trian data in a json file
+    # Save class labels of custom train data as a json file in the same folder as the model
     if data_source != 'fashion_mnist':
         labels = train_data.class_indices
-        with open("label.json", "w") as outfile:
+        with open("{}\label.json".format(model_path), "w") as outfile:
             json.dump(labels, outfile)
 
     model_pipeline = CnnPipeline(train_data, test_data)

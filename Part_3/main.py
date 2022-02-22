@@ -33,7 +33,7 @@ def main(model_path, target_size, data_source, label_path,
         label: The predicted class
     """
 
-    model = load_model(model_path, compile = True)
+    model = load_model(model_path, compile=True)
 
     try:
         img = consumer.consumer(broker_type, topic, gcp_creds=gcp_creds, 
@@ -55,9 +55,9 @@ def main(model_path, target_size, data_source, label_path,
         with open(label_path) as json_file:
             class_labels = json.load(json_file)
 
-        pred = model.predict(img)
+        pred = model.predict(np_img)
         prediction = np.argmax(pred)
-        label = class_labels[prediction]
+        label = list(class_labels)[prediction]
     
     return label
 
