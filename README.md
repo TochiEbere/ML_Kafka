@@ -1,4 +1,4 @@
-# Vector.ai
+# ML & Kafka
 
 This is a repository to demonstrate data streaming in to a CNN model using Kafka.  
 
